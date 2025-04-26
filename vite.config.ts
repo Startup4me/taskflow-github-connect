@@ -8,7 +8,12 @@ export default defineConfig(({ mode }) => ({
     host: "::",
     port: 8080,
   },
-  base: "./", // 👈 IMPORTANT for Netlify deployment
+  base: "/", // Changed from "./" to "/" for Netlify
+  build: {
+    outDir: "dist",
+    assetsDir: "assets",
+    sourcemap: true,
+  },
   plugins: [
     react(),
     mode === 'development' && componentTagger(),
