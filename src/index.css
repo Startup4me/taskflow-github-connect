@@ -3,23 +3,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Drag and drop styles */
-.task-card {
-  @apply bg-white rounded-lg shadow p-3 mb-2 select-none transform transition-all duration-200;
-}
-
-.task-card.is-dragging {
-  @apply opacity-50 scale-105 rotate-2;
-}
-
-.drop-target {
-  @apply ring-2 ring-taskflow-400 ring-opacity-50;
-}
-
-.task-card:active {
-  @apply cursor-grabbing;
-}
-
 /* Dialog style fixes */
 .bg-background {
   background-color: white;

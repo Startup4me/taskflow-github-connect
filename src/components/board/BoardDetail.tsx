@@ -32,8 +32,6 @@ const BoardDetail = () => {
   const [editedListTitle, setEditedListTitle] = useState("");
   const [isTaskDialogOpen, setIsTaskDialogOpen] = useState(false);
   const [targetListId, setTargetListId] = useState<string | null>(null);
-  const [draggedTaskId, setDraggedTaskId] = useState<string | null>(null);
-  const [draggedListId, setDraggedListId] = useState<string | null>(null);
   const [newTask, setNewTask] = useState<Partial<Task>>({
     title: "",
     description: "",
@@ -42,8 +40,6 @@ const BoardDetail = () => {
     status: "todo",
   });
 
-  const dragTaskRef = useRef<{ taskId: string; listId: string } | null>(null);
-  
   const board = boards.find((b) => b.id === boardId);
 
   useEffect(() => {
@@ -99,32 +95,6 @@ const BoardDetail = () => {
     }
   };
 
-  const handleDragStart = (taskId: string, listId: string) => {
-    setDraggedTaskId(taskId);
-    setDraggedListId(listId);
-    dragTaskRef.current = { taskId, listId };
-  };
-
-  const handleDragOver = (e: React.DragEvent) => {
-    e.preventDefault();
-    e.dataTransfer.dropEffect = "move";
-  };
-
-  const handleDrop = (e: React.DragEvent, targetListId: string) => {
-    e.preventDefault();
-    
-    if (dragTaskRef.current && boardId && targetListId !== draggedListId) {
-      const { taskId, listId: sourceListId } = dragTaskRef.current;
-      
-      const { moveTask } = useBoard();
-      moveTask(boardId, sourceListId, targetListId, taskId);
-      
-      dragTaskRef.current = null;
-      setDraggedTaskId(null);
-      setDraggedListId(null);
-    }
-  };
-
   const formatDate = (dateString: string) => {
     if (!dateString) return "";
     const date = new Date(dateString);
@@ -163,9 +133,7 @@ const BoardDetail = () => {
         {board.lists.map((list) => (
           <div
             key={list.id}
-            className={`list-container ${draggedTaskId ? 'drop-target' : ''}`}
-            onDragOver={handleDragOver}
-            onDrop={(e) => handleDrop(e, list.id)}
+            className="list-container"
           >
             <div className="mb-3 flex items-center justify-between">
               {editingListId === list.id ? (
@@ -222,8 +190,6 @@ const BoardDetail = () => {
                   task={task}
                   listId={list.id}
                   boardId={board.id}
-                  onDragStart={handleDragStart}
-                  isDragging={draggedTaskId === task.id}
                 />
               ))}
             </div>

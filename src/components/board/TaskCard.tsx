@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Task } from "@/types";
 import { useBoard } from "@/contexts/BoardContext";
@@ -27,23 +26,18 @@ import {
   CheckCircle2,
   X,
   Edit,
-  GripHorizontal,
 } from "lucide-react";
 
 interface TaskCardProps {
   task: Task;
   listId: string;
   boardId: string;
-  onDragStart: (taskId: string, listId: string) => void;
-  isDragging: boolean;
 }
 
 const TaskCard: React.FC<TaskCardProps> = ({
   task,
   listId,
   boardId,
-  onDragStart,
-  isDragging,
 }) => {
   const { updateTask, deleteTask } = useBoard();
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
@@ -90,17 +84,12 @@ const TaskCard: React.FC<TaskCardProps> = ({
 
   return (
     <>
-      <div
-        className={`task-card ${isDragging ? "opacity-50" : ""} cursor-move group`}
-        draggable="true"
-        onDragStart={(e) => {
-          e.dataTransfer.effectAllowed = "move";
-          onDragStart(task.id, listId);
-        }}
+      <div 
+        className="bg-white rounded-lg shadow p-3 mb-2"
+        onClick={() => setIsEditDialogOpen(true)}
       >
         <div className="flex items-start gap-2">
-          <GripHorizontal className="h-5 w-5 text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity" />
-          <div className="flex-1" onClick={() => setIsEditDialogOpen(true)}>
+          <div className="flex-1">
             <div className="font-medium mb-2">{task.title}</div>
             
             {task.description && (
@@ -244,4 +233,3 @@ const TaskCard: React.FC<TaskCardProps> = ({
 };
 
 export default TaskCard;
-
