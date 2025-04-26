@@ -67,7 +67,7 @@ const Navbar = () => {
                       logout();
                       setMobileMenuOpen(false);
                     }}
-                    className="w-full md:w-auto"
+                    className="w-full md:hidden"
                   >
                     Logout
                   </Button>
