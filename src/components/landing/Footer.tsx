@@ -23,19 +23,19 @@ const Footer = () => {
             </h3>
             <ul className="space-y-2">
               <li>
-                <Link to="/features" className="text-gray-600 hover:text-gray-900">
+                <a href="#" className="text-gray-600 hover:text-gray-900">
                   Features
-                </Link>
+                </a>
               </li>
               <li>
-                <Link to="/pricing" className="text-gray-600 hover:text-gray-900">
+                <a href="#" className="text-gray-600 hover:text-gray-900">
                   Pricing
-                </Link>
+                </a>
               </li>
               <li>
-                <Link to="/integrations" className="text-gray-600 hover:text-gray-900">
+                <a href="#" className="text-gray-600 hover:text-gray-900">
                   Integrations
-                </Link>
+                </a>
               </li>
             </ul>
           </div>
@@ -46,19 +46,19 @@ const Footer = () => {
             </h3>
             <ul className="space-y-2">
               <li>
-                <Link to="/docs" className="text-gray-600 hover:text-gray-900">
+                <a href="#" className="text-gray-600 hover:text-gray-900">
                   Documentation
-                </Link>
+                </a>
               </li>
               <li>
-                <Link to="/blog" className="text-gray-600 hover:text-gray-900">
+                <a href="#" className="text-gray-600 hover:text-gray-900">
                   Blog
-                </Link>
+                </a>
               </li>
               <li>
-                <Link to="/support" className="text-gray-600 hover:text-gray-900">
+                <a href="#" className="text-gray-600 hover:text-gray-900">
                   Support
-                </Link>
+                </a>
               </li>
             </ul>
           </div>
@@ -69,19 +69,19 @@ const Footer = () => {
             </h3>
             <ul className="space-y-2">
               <li>
-                <Link to="/about" className="text-gray-600 hover:text-gray-900">
+                <a href="#" className="text-gray-600 hover:text-gray-900">
                   About Us
-                </Link>
+                </a>
               </li>
               <li>
-                <Link to="/careers" className="text-gray-600 hover:text-gray-900">
+                <a href="#" className="text-gray-600 hover:text-gray-900">
                   Careers
-                </Link>
+                </a>
               </li>
               <li>
-                <Link to="/contact" className="text-gray-600 hover:text-gray-900">
+                <a href="#" className="text-gray-600 hover:text-gray-900">
                   Contact
-                </Link>
+                </a>
               </li>
             </ul>
           </div>
@@ -92,15 +92,15 @@ const Footer = () => {
             &copy; {new Date().getFullYear()} TaskFlow. All rights reserved.
           </p>
           <div className="flex space-x-6 mt-4 md:mt-0">
-            <Link to="/privacy" className="text-gray-500 hover:text-gray-900 text-sm">
+            <a href="#" className="text-gray-500 hover:text-gray-900 text-sm">
               Privacy Policy
-            </Link>
-            <Link to="/terms" className="text-gray-500 hover:text-gray-900 text-sm">
+            </a>
+            <a href="#" className="text-gray-500 hover:text-gray-900 text-sm">
               Terms of Service
-            </Link>
-            <Link to="/cookies" className="text-gray-500 hover:text-gray-900 text-sm">
+            </a>
+            <a href="#" className="text-gray-500 hover:text-gray-900 text-sm">
               Cookie Policy
-            </Link>
+            </a>
           </div>
         </div>
       </div>
