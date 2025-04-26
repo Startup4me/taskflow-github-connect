@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Task } from "@/types";
 import { useBoard } from "@/contexts/BoardContext";
@@ -32,12 +33,16 @@ interface TaskCardProps {
   task: Task;
   listId: string;
   boardId: string;
+  onDragStart: (taskId: string, listId: string) => void;
+  isDragging: boolean;
 }
 
 const TaskCard: React.FC<TaskCardProps> = ({
   task,
   listId,
   boardId,
+  onDragStart,
+  isDragging,
 }) => {
   const { updateTask, deleteTask } = useBoard();
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
@@ -84,31 +89,32 @@ const TaskCard: React.FC<TaskCardProps> = ({
 
   return (
     <>
-      <div 
-        className="bg-white rounded-lg shadow p-3 mb-2"
+      <div
+        className={`task-card ${isDragging ? "is-dragging" : ""}`}
+        draggable
+        onDragStart={(e) => {
+          e.dataTransfer.effectAllowed = "move";
+          onDragStart(task.id, listId);
+        }}
         onClick={() => setIsEditDialogOpen(true)}
       >
-        <div className="flex items-start gap-2">
-          <div className="flex-1">
-            <div className="font-medium mb-2">{task.title}</div>
-            
-            {task.description && (
-              <p className="text-sm text-gray-600 mb-2 line-clamp-2">
-                {task.description}
-              </p>
-            )}
-            
-            <div className="flex flex-wrap items-center gap-2 mt-auto">
-              {getPriorityBadge(task.priority)}
-              
-              {task.dueDate && (
-                <div className="text-xs flex items-center text-gray-600">
-                  <Calendar size={12} className="mr-1" />
-                  {formatDate(task.dueDate)}
-                </div>
-              )}
+        <div className="font-medium mb-2">{task.title}</div>
+        
+        {task.description && (
+          <p className="text-sm text-gray-600 mb-2 line-clamp-2">
+            {task.description}
+          </p>
+        )}
+        
+        <div className="flex flex-wrap items-center gap-2 mt-auto">
+          {getPriorityBadge(task.priority)}
+          
+          {task.dueDate && (
+            <div className="text-xs flex items-center text-gray-600">
+              <Calendar size={12} className="mr-1" />
+              {formatDate(task.dueDate)}
             </div>
-          </div>
+          )}
         </div>
       </div>
 

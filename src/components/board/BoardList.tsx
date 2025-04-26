@@ -4,7 +4,7 @@ import { useBoard } from '@/contexts/BoardContext';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogDescription } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Textarea } from '@/components/ui/textarea';
 import { Plus, Github } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -49,12 +49,9 @@ const BoardList = () => {
               New Board
             </Button>
           </DialogTrigger>
-          <DialogContent className="bg-background border-border">
+          <DialogContent>
             <DialogHeader>
               <DialogTitle>Create a new board</DialogTitle>
-              <DialogDescription>
-                Add a new board to organize your tasks and projects.
-              </DialogDescription>
             </DialogHeader>
             <form onSubmit={handleCreateBoard} className="space-y-4 pt-4">
               <div className="space-y-2">
@@ -91,12 +88,9 @@ const BoardList = () => {
 
       {/* GitHub Repository Dialog */}
       <Dialog open={isGithubDialogOpen} onOpenChange={setIsGithubDialogOpen}>
-        <DialogContent className="bg-background border-border">
+        <DialogContent>
           <DialogHeader>
             <DialogTitle>Connect GitHub Repository</DialogTitle>
-            <DialogDescription>
-              Link a GitHub repository to sync with your board.
-            </DialogDescription>
           </DialogHeader>
           <form onSubmit={handleConnectGithub} className="space-y-4 pt-4">
             <div className="space-y-2">
