@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -18,3 +19,9 @@
 .task-card:active {
   @apply cursor-grabbing;
 }
+
+/* Dialog style fixes */
+.bg-background {
+  background-color: white;
+}
+
