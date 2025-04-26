@@ -27,6 +27,7 @@ import {
   CheckCircle2,
   X,
   Edit,
+  GripHorizontal,
 } from "lucide-react";
 
 interface TaskCardProps {
@@ -90,31 +91,35 @@ const TaskCard: React.FC<TaskCardProps> = ({
   return (
     <>
       <div
-        className={`task-card ${isDragging ? "is-dragging" : ""}`}
-        draggable
+        className={`task-card ${isDragging ? "opacity-50" : ""} cursor-move group`}
+        draggable="true"
         onDragStart={(e) => {
           e.dataTransfer.effectAllowed = "move";
           onDragStart(task.id, listId);
         }}
-        onClick={() => setIsEditDialogOpen(true)}
       >
-        <div className="font-medium mb-2">{task.title}</div>
-        
-        {task.description && (
-          <p className="text-sm text-gray-600 mb-2 line-clamp-2">
-            {task.description}
-          </p>
-        )}
-        
-        <div className="flex flex-wrap items-center gap-2 mt-auto">
-          {getPriorityBadge(task.priority)}
-          
-          {task.dueDate && (
-            <div className="text-xs flex items-center text-gray-600">
-              <Calendar size={12} className="mr-1" />
-              {formatDate(task.dueDate)}
+        <div className="flex items-start gap-2">
+          <GripHorizontal className="h-5 w-5 text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity" />
+          <div className="flex-1" onClick={() => setIsEditDialogOpen(true)}>
+            <div className="font-medium mb-2">{task.title}</div>
+            
+            {task.description && (
+              <p className="text-sm text-gray-600 mb-2 line-clamp-2">
+                {task.description}
+              </p>
+            )}
+            
+            <div className="flex flex-wrap items-center gap-2 mt-auto">
+              {getPriorityBadge(task.priority)}
+              
+              {task.dueDate && (
+                <div className="text-xs flex items-center text-gray-600">
+                  <Calendar size={12} className="mr-1" />
+                  {formatDate(task.dueDate)}
+                </div>
+              )}
             </div>
-          )}
+          </div>
         </div>
       </div>
 
@@ -239,3 +244,4 @@ const TaskCard: React.FC<TaskCardProps> = ({
 };
 
 export default TaskCard;
+

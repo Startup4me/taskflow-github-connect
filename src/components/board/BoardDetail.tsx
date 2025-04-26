@@ -1,4 +1,3 @@
-
 import { useState, useRef, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useBoard } from "@/contexts/BoardContext";
@@ -88,7 +87,6 @@ const BoardDetail = () => {
   const handleCreateTask = () => {
     if (boardId && targetListId && newTask.title) {
       createTask(boardId, targetListId, newTask as Omit<Task, "id" | "createdAt" | "createdBy">);
-      // Reset form
       setNewTask({
         title: "",
         description: "",
@@ -109,22 +107,18 @@ const BoardDetail = () => {
 
   const handleDragOver = (e: React.DragEvent) => {
     e.preventDefault();
+    e.dataTransfer.dropEffect = "move";
   };
 
-  const handleDrop = (e: React.DragEvent, listId: string) => {
+  const handleDrop = (e: React.DragEvent, targetListId: string) => {
     e.preventDefault();
     
-    if (dragTaskRef.current && boardId && listId !== draggedListId) {
-      // Get the task and list IDs from the ref
+    if (dragTaskRef.current && boardId && targetListId !== draggedListId) {
       const { taskId, listId: sourceListId } = dragTaskRef.current;
       
-      // Get the board's moveTask function from context
       const { moveTask } = useBoard();
+      moveTask(boardId, sourceListId, targetListId, taskId);
       
-      // Move the task
-      moveTask(boardId, sourceListId, listId, taskId);
-      
-      // Clear the refs and state
       dragTaskRef.current = null;
       setDraggedTaskId(null);
       setDraggedListId(null);
@@ -166,11 +160,10 @@ const BoardDetail = () => {
       </div>
 
       <div className="board-container">
-        {/* Lists */}
         {board.lists.map((list) => (
           <div
             key={list.id}
-            className="list-container"
+            className={`list-container ${draggedTaskId ? 'drop-target' : ''}`}
             onDragOver={handleDragOver}
             onDrop={(e) => handleDrop(e, list.id)}
           >
@@ -222,7 +215,6 @@ const BoardDetail = () => {
               )}
             </div>
 
-            {/* Tasks */}
             <div className="flex-1 overflow-y-auto mb-2">
               {list.tasks.map((task) => (
                 <TaskCard
@@ -250,7 +242,6 @@ const BoardDetail = () => {
           </div>
         ))}
 
-        {/* Add new list */}
         <div className="list-container bg-gray-50 border border-dashed min-h-[100px]">
           {isAddingList ? (
             <div className="flex flex-col">
@@ -292,7 +283,6 @@ const BoardDetail = () => {
         </div>
       </div>
 
-      {/* New Task Dialog */}
       <Dialog open={isTaskDialogOpen} onOpenChange={setIsTaskDialogOpen}>
         <DialogContent>
           <DialogHeader>
